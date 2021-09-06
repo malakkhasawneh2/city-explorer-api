@@ -14,6 +14,10 @@ server.listen(PORT, () => {
 console.log(`Hello, I am listening on ${PORT}`);
 })
 
+server.get('/',(req,res)=>{
+    res.send('Hello from the home route')
+})
+
 // http://localhost:3333/test
 server.get('/test',(req,res) => {
     res.send('Hi from test route');
