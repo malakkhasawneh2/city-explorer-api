@@ -21,7 +21,7 @@ server.get('/test', (req, res) => {
     res.send('Hi from test route');
 })
 
-//http://localhost:3333/weather?cityName=Amman
+//http://localhost:3333/weather?citylat=lat&lon=lon
 server.get("/weather", (req, res) => {
     const lon = req.query.lon;
     const lat = req.query.lat;    
@@ -31,8 +31,7 @@ server.get("/weather", (req, res) => {
         if(item.lat === lat && item.lon === lon)
         {            
             weatherArray = item.data.map(day => {
-                const dayObj = new Forecast(day);
-                return dayObj;
+                return new Forcast(day)
                 
             })
         }
@@ -41,7 +40,7 @@ server.get("/weather", (req, res) => {
 });
 
 
-function Forecast(day) {
+function Forcast(day) {
     this.date = day.valid_date;
     this.description = `Low of ${day.low_temp}, high of ${day.high_temp} with ${day.weather.description}`;
 }
