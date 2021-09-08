@@ -21,7 +21,7 @@ server.get('/test', (req, res) => {
     res.send('Hi from test route');
 })
 
-//http://localhost:3333/weather?citylat=lat&lon=lon
+//http://localhost:3333/weather?lat=lat&lon=lon
 server.get("/weather", (req, res) => {
     const lon = req.query.lon;
     const lat = req.query.lat;    
