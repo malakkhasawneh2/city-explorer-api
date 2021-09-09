@@ -8,6 +8,8 @@ require('dotenv').config();//to import dotenv
 const PORT = process.env.PORT;//take the port from .env file
 //axios
 const axios = require('axios');
+const getWeather = require("./weather");
+const getMovies = require("./movies");
 
 
 // to make our server listen on PORT
@@ -26,47 +28,47 @@ server.get('/test', (req, res) => {
 server.get('/weather', getWeather)
 server.get('/movies', getMovies)
 // getWeatherinfo
-function getWeather(req, res) {
-    // const lat=req.query.lat;
-    // const lon=req.query.lon;
+// function getWeather(req, res) {
+//     // const lat=req.query.lat;
+//     // const lon=req.query.lon;
    
-    const name = req.query.cityName
-    console.log(req.query);
-    const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=${process.env.WEATHER_API_KEY}`;
-    let weatherInfo = [];
-    axios
-        .get(URL)
-        .then(result => {
-            weatherInfo = result.data.data.map(item => {
-                return new Forecast(item)
-            })
-            res.send(weatherInfo)
-        })
-        .catch(error => {
-            console.log(error);
-            res.send('Error!',error);
-        })
-}
+//     const name = req.query.cityName
+//     console.log(req.query);
+//     const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=${process.env.WEATHER_API_KEY}`;
+//     let weatherInfo = [];
+//     axios
+//         .get(URL)
+//         .then(result => {
+//             weatherInfo = result.data.data.map(item => {
+//                 return new Forecast(item)
+//             })
+//             res.send(weatherInfo)
+//         })
+//         .catch(error => {
+//             console.log(error);
+//             res.send('Error!',error);
+//         })
+// }
 
 
-function getMovies(req, res) {
-    const name = req.query.cityName
+// function getMovies(req, res) {
+//     const name = req.query.cityName
 
-    const moviesURL = `https://api.themoviedb.org/3/search/movie?query=${name}&api_key=${process.env.MOVIE_API_KEY}&language=en-US&page=1&include_adult=false`
-    let movieInfo = [];
-    axios
-        .get(moviesURL)
-        .then(result => {
-            movieInfo = result.data.results.map((item) => {
-                return new Movie(item)
-            })
-            res.send(movieInfo)
-        })
-        .catch(error => {
-            console.log(error);
-            res.status(500).send('Error!');
-        })
-}
+//     const moviesURL = `https://api.themoviedb.org/3/search/movie?query=${name}&api_key=${process.env.MOVIE_API_KEY}&language=en-US&page=1&include_adult=false`
+//     let movieInfo = [];
+//     axios
+//         .get(moviesURL)
+//         .then(result => {
+//             movieInfo = result.data.results.map((item) => {
+//                 return new Movie(item)
+//             })
+//             res.send(movieInfo)
+//         })
+//         .catch(error => {
+//             console.log(error);
+//             res.status(500).send('Error!');
+//         })
+// }
 
 
 
@@ -89,12 +91,12 @@ function getMovies(req, res) {
 //     res.send(weatherArray);
 // });
 
-class Forecast {
-    constructor(day) {
-        this.date = day.valid_date;
-        this.description = `Low of ${day.low_temp}, high of ${day.high_temp} with ${day.weather.description}`;
-    }
-}
+// class Forecast {
+//     constructor(day) {
+//         this.date = day.valid_date;
+//         this.description = `Low of ${day.low_temp}, high of ${day.high_temp} with ${day.weather.description}`;
+//     }
+// }
 
 //http://localhost:3333/movie?cityName=Amman
 
@@ -111,17 +113,17 @@ class Forecast {
 //     })
 //     res.status(200).send(moviesArray);
 // });
-class Movie {
-    constructor(item) {
+// class Movie {
+//     constructor(item) {
 
-        this.title = item.title
-        this.overview = item.overview
-        this.average_votes = item.vote_average
-        this.total_votes = item.vote_count
-        this.image_url = `https://image.tmdb.org/t/p/w500${item.poster_path}`
-        this.popularity = item.popularity
-        this.released_on = item.release_date
-    }
+//         this.title = item.title
+//         this.overview = item.overview
+//         this.average_votes = item.vote_average
+//         this.total_votes = item.vote_count
+//         this.image_url = `https://image.tmdb.org/t/p/w500${item.poster_path}`
+//         this.popularity = item.popularity
+//         this.released_on = item.release_date
+//     }
 
-}
+// }
 
