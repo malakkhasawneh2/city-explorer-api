@@ -2,7 +2,7 @@ const axios = require("axios");
 let movieMemory = {};
 function getMovies(req, res) {
     const name = req.query.cityName
-    if (movieInfo[name] !== undefined) {
+    if (movieMemory[name] !== undefined) {
         res.send(movieMemory[name]);
     } else {
         const moviesURL = `https://api.themoviedb.org/3/search/movie?query=${name}&api_key=${process.env.MOVIE_API_KEY}&language=en-US&page=1&include_adult=false`
