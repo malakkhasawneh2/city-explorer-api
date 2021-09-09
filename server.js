@@ -27,9 +27,11 @@ server.get('/weather', getWeather)
 server.get('/movies', getMovies)
 // getWeatherinfo
 function getWeather(req, res) {
-    const lat=req.query.lat;
-    const lon=req.query.lon;
-    const name = req.query.name
+    // const lat=req.query.lat;
+    // const lon=req.query.lon;
+   
+    const name = req.query.cityName
+    console.log(req.query);
     const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=${process.env.WEATHER_API_KEY}`;
     let weatherInfo = [];
     axios
@@ -42,7 +44,7 @@ function getWeather(req, res) {
         })
         .catch(error => {
             console.log(error);
-            res.status(500).send('Error!');
+            res.send('Error!',error);
         })
 }
 
